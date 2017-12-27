@@ -17,7 +17,7 @@
 # Please file any issues or PRs at https://github.com/gocd/docker-gocd-agent
 ###############################################################################################
 
-FROM gocd/gocd-agent-centos-7:v17.11.0
+FROM gocd/gocd-agent-centos-7:v17.12.0
 ADD docker.repo /etc/yum.repos.d/docker.repo
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash && \
     echo "go    ALL=NOPASSWD: ALL" >> /etc/sudoers && \
