@@ -18,5 +18,12 @@
 ###############################################################################################
 
 FROM gocd/gocd-agent-centos-7:v17.11.0
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-RUN yum -y install sudo
+ADD docker.repo /etc/yum.repos.d/docker.repo
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash && \
+    echo "go    ALL=NOPASSWD: ALL" >> /etc/sudoers && \
+    yum -y install sudo maven docker-engine-1.10.0-1.el7.centos && \
+    curl --fail --location --silent --show-error "https://github.com/openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-linux-64bit.tar.gz" > /tmp/oc.tar.gz && \
+    cd /tmp && \
+    tar -zxvf /tmp/oc.tar.gz && \
+    mv /tmp/openshift-origin-client-tools-v3.7.0-7ed6862-linux-64bit/oc /bin/oc && \
+    chmod 777 /bin/oc
